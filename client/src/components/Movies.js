@@ -1,4 +1,4 @@
-import { Table } from 'antd';
+import { Table, Space, Button } from 'antd';
 import React from 'react';
 
 export const Movies = (props) => {
@@ -15,12 +15,28 @@ export const Movies = (props) => {
             title: "Movie Name",
             dataIndex: "movieName",
             key: "movieName"
+        },
+        {
+            title: "Action",
+            dataIndex: "action",
+            key: "action"
         }
     ]
 
+    const openInNewTab = url => {
+        window.open(url, '_blank', 'noopener,noreferrer');
+    };
+
     const dataSource = commonMovies.map((val) => ({
         movieId: allGenreMovieDict[val],
-        movieName: val
+        movieName: val,
+        action: (
+            <Space>
+                <Button type="primary"
+                    onClick={() => openInNewTab("https://www.themoviedb.org/movie/" + allGenreMovieDict[val])}
+                >Movie</Button>
+            </Space>
+        )
     }))
     console.log("Datasource: ", dataSource )
 

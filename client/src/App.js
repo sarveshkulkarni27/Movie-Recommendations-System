@@ -178,7 +178,7 @@ function App() {
         >
 
           {displayMovies && commonMovies.length > 0 &&
-            <div>Movies across all predicetd genres</div>          
+            <div>Movies across all predicted genres</div>          
           }          
           {displayMovies && commonMovies.length > 0 &&
             <Movies commonMovies = { commonMovies } allGenreMovieDict = {allGenreMovieDict} />          
