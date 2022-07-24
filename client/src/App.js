@@ -13,13 +13,13 @@ function App() {
   const [displayButton, setDisplayButton] = useState(true);
 
 
-  const [actionGenre, setActionGenre] = useState(false);
-  const [romanticGenre, setRomanticGenre] = useState(false);
-  const [comedyGenre, setComedyGenre] = useState(false);
-  const [horrorGenre, setHorrorGenre] = useState(false);
-  const [historicalGenre, setHistoricalGenre] = useState(false);
-  const [fantasyGenre, setFantasyGenre] = useState(false);
-  const [scifiGenre, setScifiGenre] = useState(false);
+  // const [actionGenre, setActionGenre] = useState(false);
+  // const [romanticGenre, setRomanticGenre] = useState(false);
+  // const [comedyGenre, setComedyGenre] = useState(false);
+  // const [horrorGenre, setHorrorGenre] = useState(false);
+  // const [historicalGenre, setHistoricalGenre] = useState(false);
+  // const [fantasyGenre, setFantasyGenre] = useState(false);
+  // const [scifiGenre, setScifiGenre] = useState(false);
 
 
   const [actionMovies, setActionMovies] = useState([]);
@@ -52,54 +52,34 @@ function App() {
     console.log("Movies", commonMovies)
   }
 
-  const update_common_data = (result) => {
+  const update_common_data = async (result) => {
     if(result && 'commonMovies' in result){
       setCommonMovies(result['commonMovies'])
     }
+    const isMoviesPerGenre = (result && 'moviesPerGenre' in result) ? true : false;
     if(result && 'predictedGenres' in result){
       setGenres(result['predictedGenres'])
-      if(result['predictedGenres'].indexOf('action') !== -1){
-        setActionGenre(true);
-        if(result && 'moviesPerGenre' in result){
-          setActionMovies(result['moviesPerGenre'].action)
-        }
+      if(result['predictedGenres'].indexOf('action') !== -1 && isMoviesPerGenre){
+        setActionMovies(result['moviesPerGenre'].action)
       }
-      if(result['predictedGenres'].indexOf('romantic') !== -1){
-        setRomanticGenre(true);
-        if(result && 'moviesPerGenre' in result){
-          setRomanticMovies(result['moviesPerGenre'].romantic)
-        }        
+      if(result['predictedGenres'].indexOf('romantic') !== -1 && isMoviesPerGenre){
+        setRomanticMovies(result['moviesPerGenre'].romantic)
       }
-      if(result['predictedGenres'].indexOf('comedy') !== -1){
-        setComedyGenre(true);
-        if(result && 'moviesPerGenre' in result){
-          setComedyMovies(result['moviesPerGenre'].comedy)
-        }          
+      if(result['predictedGenres'].indexOf('comedy') !== -1 && isMoviesPerGenre){
+        setComedyMovies(result['moviesPerGenre'].comedy)
       }
-      if(result['predictedGenres'].indexOf('horror') !== -1){
-        setHorrorGenre(true);
-        if(result && 'moviesPerGenre' in result){
-          setHorrorMovies(result['moviesPerGenre'].horror)
-        }         
+      if(result['predictedGenres'].indexOf('horror') !== -1 && isMoviesPerGenre){
+        setHorrorMovies(result['moviesPerGenre'].horror)
       }
-      if(result['predictedGenres'].indexOf('historical') !== -1){
-        setHistoricalGenre(true);
-        if(result && 'moviesPerGenre' in result){
-          setHistoricalMovies(result['moviesPerGenre'].historical)
-        }         
+      if(result['predictedGenres'].indexOf('historical') !== -1 && isMoviesPerGenre){
+        setHistoricalMovies(result['moviesPerGenre'].historical)
       }
-      if(result['predictedGenres'].indexOf('fantasy') !== -1){
-        setFantasyGenre(true);
-        if(result && 'moviesPerGenre' in result){
-          setFantasyMovies(result['moviesPerGenre'].fantasy)
-        }        
+      if(result['predictedGenres'].indexOf('fantasy') !== -1 && isMoviesPerGenre){
+        setFantasyMovies(result['moviesPerGenre'].fantasy)
       }
-      if(result['predictedGenres'].indexOf('sci-fi"') !== -1){
-        setScifiGenre(true);
-        if(result && 'moviesPerGenre' in result){
-          let scifi = 'sci-fi'
-          setScifiMovies(result['moviesPerGenre'].scifi)
-        }         
+      if(result['predictedGenres'].indexOf('sci-fi"') !== -1 && isMoviesPerGenre){
+        let scifi = 'sci-fi'
+        setScifiMovies(result['moviesPerGenre'].scifi)
       }      
     }
 
