@@ -8,6 +8,7 @@ function App() {
   const { Text } = Typography;
   const { TextArea } = Input;
   const [commonMovies, setCommonMovies] = useState([]);
+  const [allGenreMovieDict, setAllGenreMovieDict] = useState([]);
   const [genres, setGenres] = useState([]);
   const [displayMovies, setDisplayMovies] = useState(false);
   const [displayButton, setDisplayButton] = useState(true);
@@ -56,6 +57,9 @@ function App() {
     if(result && 'commonMovies' in result){
       setCommonMovies(result['commonMovies'])
     }
+    if(result && 'allGenreMovieDict' in result){
+      setAllGenreMovieDict(result['allGenreMovieDict'])
+    }    
     const isMoviesPerGenre = (result && 'moviesPerGenre' in result) ? true : false;
     if(result && 'predictedGenres' in result){
       setGenres(result['predictedGenres'])
@@ -174,55 +178,55 @@ function App() {
         >
 
           {displayMovies && commonMovies.length > 0 &&
-            <div>Common Movies  </div>          
+            <div>Movies across all predicetd genres</div>          
           }          
           {displayMovies && commonMovies.length > 0 &&
-            <Movies commonMovies = { commonMovies }/>          
+            <Movies commonMovies = { commonMovies } allGenreMovieDict = {allGenreMovieDict} />          
           }
           {displayMovies && genres && genres.length == 0 &&
            <div>Please enter valid movie description</div>
           }
           {displayMovies && actionMovies.length > 0 &&
-            <div>Action Movies  </div>          
+            <div>Action Movies</div>          
           } 
           {displayMovies && actionMovies.length > 0 &&
-            <Movies commonMovies = { actionMovies }/>          
+            <Movies commonMovies = { actionMovies } allGenreMovieDict = {allGenreMovieDict} />          
           }
           {displayMovies && romanticMovies.length > 0 &&
-            <div>Romantic Movies  </div>          
+            <div>Romantic Movies</div>          
           } 
           {displayMovies && romanticMovies.length > 0 &&
-            <Movies commonMovies = { romanticMovies }/>          
+            <Movies commonMovies = { romanticMovies } allGenreMovieDict = {allGenreMovieDict} />          
           }
           {displayMovies && comedyMovies.length > 0 &&
-            <div>Comedy Movies  </div>          
+            <div>Comedy Movies</div>          
           } 
           {displayMovies && comedyMovies.length > 0 &&
-            <Movies commonMovies = { comedyMovies }/>          
+            <Movies commonMovies = { comedyMovies } allGenreMovieDict = {allGenreMovieDict} />          
           }
           {displayMovies && horrorMovies.length > 0 &&
-            <div>Horror Movies  </div>          
+            <div>Horror Movies</div>          
           } 
           {displayMovies && horrorMovies.length > 0 &&
-            <Movies commonMovies = { horrorMovies }/>          
+            <Movies commonMovies = { horrorMovies } allGenreMovieDict = {allGenreMovieDict} />          
           }
           {displayMovies && historicalMovies.length > 0 &&
-            <div>Historical Movies  </div>          
+            <div>Historical Movies</div>          
           } 
           {displayMovies && historicalMovies.length > 0 &&
-            <Movies commonMovies = { historicalMovies }/>          
+            <Movies commonMovies = { historicalMovies } allGenreMovieDict = {allGenreMovieDict} />          
           }
           {displayMovies && fantasyMovies.length > 0 &&
-            <div>Fantasy Movies  </div>          
+            <div>Fantasy Movies</div>          
           } 
           {displayMovies && fantasyMovies.length > 0 &&
-            <Movies commonMovies = { fantasyMovies }/>          
+            <Movies commonMovies = { fantasyMovies } allGenreMovieDict = {allGenreMovieDict} />          
           }
           {displayMovies && scifiMovies.length > 0 &&
-            <div>Sci-Fi Movies  </div>          
+            <div>Sci-Fi Movies</div>          
           } 
           {displayMovies && scifiMovies.length > 0 &&
-            <Movies commonMovies = { scifiMovies }/>          
+            <Movies commonMovies = { scifiMovies } allGenreMovieDict = {allGenreMovieDict} />          
           }                                                                           
         </Row>
     </div>

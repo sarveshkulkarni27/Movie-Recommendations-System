@@ -3,13 +3,13 @@ import React from 'react';
 
 export const Movies = (props) => {
 
-    const { commonMovies } = props;
+    const { commonMovies, allGenreMovieDict } = props;
 
     const tableColumns = [
         {
-            title: "Movie Index",
-            dataIndex: "movieIndex",
-            key: "movieIndex"
+            title: "Movie ID",
+            dataIndex: "movieId",
+            key: "movieId"
         },
         {
             title: "Movie Name",
@@ -18,9 +18,8 @@ export const Movies = (props) => {
         }
     ]
 
-    let counter = 1
     const dataSource = commonMovies.map((val) => ({
-        movieIndex: counter++,
+        movieId: allGenreMovieDict[val],
         movieName: val
     }))
     console.log("Datasource: ", dataSource )

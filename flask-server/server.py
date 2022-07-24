@@ -61,38 +61,28 @@ def startApp():
 
 @app.route('/input_text', methods=['POST', 'GET'])
 def input_text():
-    print("request", request.json['movieDescription'])
-    # searchQuery = request.json['movieDescription']
-    # print("Text: ", searchQuery.movieDescription)
-    # if request.method == 'GET':
-    print('inside get', request.method)
     searchQuery = request.json['movieDescription']
-    print('searchQuery = ', searchQuery)
-    val = classifyText(searchQuery)
-    # getMovieData(genreMovieDict)
-    # print(genreMovieDict)
-    print("Val: ", val)
-    if(len(val) == 2):
+    genreList = classifyText(searchQuery)
+    if(len(genreList) == 2):
         return app.response_class(response=json.dumps([]),
                                   status=200,
                                   mimetype='application/json')
-    genreDict = openBrowser(val)
+    genreDict, allGenreMovieDict = openBrowser(genreList)
     print("Final Genre Dict: ", genreDict)
     commonMoviesSet = commonMovies(genreDict)
     print("Common Genres: ", list(genreDict.keys()))
     genreMovieList = {}
     for genre in genreDict:
-        # print("genre values: ", genreDict[genre].values())
         genreMovieList[genre] = list(genreDict[genre].values())
     if len(genreDict.keys()) > 1 and len(commonMoviesSet) > 0:
-        value = {"moviesPerGenre": genreMovieList, "commonMovies": commonMoviesSet,
+        value = {"moviesPerGenre": genreMovieList, "commonMovies": commonMoviesSet, "allGenreMovieDict": allGenreMovieDict,
                  "predictedGenres": list(genreDict.keys())}
         response = app.response_class(response=json.dumps(value),
                                       status=200,
                                       mimetype='application/json')
     else:
         print("genreMovieList: ", genreMovieList)
-        value = {"moviesPerGenre": genreMovieList,
+        value = {"moviesPerGenre": genreMovieList, "allGenreMovieDict": allGenreMovieDict,
                  "predictedGenres": list(genreDict.keys())}
         response = app.response_class(response=json.dumps(value),
                                       status=200,
@@ -137,6 +127,7 @@ def getMovieData(genreMovieDict):
 
 def openBrowser(genreList):
     genreDict = {}
+    allGenreMovieDict = {}
     genreList = re.sub("[^a-zA-Z]", " ", genreList)
 
     genreList = genreList.split()
@@ -160,11 +151,12 @@ def openBrowser(genreList):
             for movie in movies['results']:
                 mid = movie['id']
                 genreMovieDict[mid] = movie['title']
+                allGenreMovieDict[movie['title']] = mid
             genreDict[genre] = genreMovieDict
         else:
             print(
                 f"Error: {response.status_code}")
-    return genreDict
+    return genreDict, allGenreMovieDict
 
 
 def getStopWords():
