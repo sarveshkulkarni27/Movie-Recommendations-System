@@ -70,6 +70,7 @@ def input_text():
     genreDict, allGenreMovieDict = openBrowser(genreList)
     print("Final Genre Dict: ", genreDict)
     commonMoviesSet = commonMovies(genreDict)
+    print("Common Movies: ", commonMoviesSet)
     print("Common Genres: ", list(genreDict.keys()))
     genreMovieList = {}
     for genre in genreDict:
@@ -82,6 +83,7 @@ def input_text():
                                       mimetype='application/json')
     else:
         print("genreMovieList: ", genreMovieList)
+        print("predictedGenres: ", list(genreDict.keys()))
         value = {"moviesPerGenre": genreMovieList, "allGenreMovieDict": allGenreMovieDict,
                  "predictedGenres": list(genreDict.keys())}
         response = app.response_class(response=json.dumps(value),
@@ -128,7 +130,8 @@ def getMovieData(genreMovieDict):
 def openBrowser(genreList):
     genreDict = {}
     allGenreMovieDict = {}
-    genreList = re.sub("[^a-zA-Z]", " ", genreList)
+    # genreList = re.sub("[^a-zA-Z]", " ", genreList)
+    genreList = re.sub("[^a-zA-Z\-]", " ", genreList)
 
     genreList = genreList.split()
 
@@ -189,11 +192,17 @@ def testModels(user_input, clf, tfidf_vectorizer, multilable_binarizer):
 
 
 def classifyText(movie_description):
-    with open("logisticRegresstionModel.txt", 'rb') as file:
+    # with open("logisticRegresstionModel.txt", 'rb') as file:
+    #     clf = pickle.load(file)
+    # with open("tfidf_vectorizer.txt", 'rb') as file:
+    #     tfidf_vectorizer = pickle.load(file)
+    # with open("multilable_binarizer.txt", 'rb') as file:
+    #     multilable_binarizer = pickle.load(file)
+    with open("svm_model.txt", 'rb') as file:
         clf = pickle.load(file)
-    with open("tfidf_vectorizer.txt", 'rb') as file:
+    with open("svm_tfidf.txt", 'rb') as file:
         tfidf_vectorizer = pickle.load(file)
-    with open("multilable_binarizer.txt", 'rb') as file:
+    with open("svm_multilable_binarizer.txt", 'rb') as file:
         multilable_binarizer = pickle.load(file)
 
     prediction = testModels([movie_description], clf,

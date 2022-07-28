@@ -59,7 +59,9 @@ function App() {
     }
     if(result && 'allGenreMovieDict' in result){
       setAllGenreMovieDict(result['allGenreMovieDict'])
-    }    
+    }
+    // console.log("predictedGenres: ", result['predictedGenres'])
+    // console.log("moviesPerGenre: ", result['moviesPerGenre'])
     const isMoviesPerGenre = (result && 'moviesPerGenre' in result) ? true : false;
     if(result && 'predictedGenres' in result){
       setGenres(result['predictedGenres'])
@@ -81,9 +83,9 @@ function App() {
       if(result['predictedGenres'].indexOf('fantasy') !== -1 && isMoviesPerGenre){
         setFantasyMovies(result['moviesPerGenre'].fantasy)
       }
-      if(result['predictedGenres'].indexOf('sci-fi"') !== -1 && isMoviesPerGenre){
+      if(result['predictedGenres'].indexOf('sci-fi') !== -1 && isMoviesPerGenre){
         let scifi = 'sci-fi'
-        setScifiMovies(result['moviesPerGenre'].scifi)
+        setScifiMovies(result['moviesPerGenre']['sci-fi'])
       }      
     }
 
@@ -105,7 +107,7 @@ function App() {
         padding: "24px 24px"
       }}
     >
-      <b>Movie Recommendation System</b>
+      <b>Movie Recommendations System</b>
       <Row gutter={[24, 24]}>
         <Form
           // labelCol={{
@@ -177,55 +179,55 @@ function App() {
               }}
         >
 
-          {displayMovies && commonMovies.length > 0 &&
+          {displayMovies && commonMovies && commonMovies.length > 0 &&
             <div>Movies across all predicted genres</div>          
           }          
-          {displayMovies && commonMovies.length > 0 &&
+          {displayMovies && commonMovies && commonMovies.length > 0 &&
             <Movies commonMovies = { commonMovies } allGenreMovieDict = {allGenreMovieDict} />          
           }
           {displayMovies && genres && genres.length == 0 &&
-           <div>Please enter valid movie description</div>
+           <div>Sorry, we were not able to predict the genres for the input movie description. Please try again.</div>
           }
-          {displayMovies && actionMovies.length > 0 &&
+          {displayMovies && actionMovies && actionMovies.length > 0 &&
             <div>Action Movies</div>          
           } 
-          {displayMovies && actionMovies.length > 0 &&
+          {displayMovies && actionMovies && actionMovies.length > 0 &&
             <Movies commonMovies = { actionMovies } allGenreMovieDict = {allGenreMovieDict} />          
           }
-          {displayMovies && romanticMovies.length > 0 &&
+          {displayMovies && romanticMovies && romanticMovies.length > 0 &&
             <div>Romantic Movies</div>          
           } 
-          {displayMovies && romanticMovies.length > 0 &&
+          {displayMovies && romanticMovies && romanticMovies.length > 0 &&
             <Movies commonMovies = { romanticMovies } allGenreMovieDict = {allGenreMovieDict} />          
           }
-          {displayMovies && comedyMovies.length > 0 &&
+          {displayMovies && comedyMovies && comedyMovies.length > 0 &&
             <div>Comedy Movies</div>          
           } 
-          {displayMovies && comedyMovies.length > 0 &&
+          {displayMovies && comedyMovies && comedyMovies.length > 0 &&
             <Movies commonMovies = { comedyMovies } allGenreMovieDict = {allGenreMovieDict} />          
           }
-          {displayMovies && horrorMovies.length > 0 &&
+          {displayMovies && horrorMovies && horrorMovies.length > 0 &&
             <div>Horror Movies</div>          
           } 
-          {displayMovies && horrorMovies.length > 0 &&
+          {displayMovies && horrorMovies && horrorMovies.length > 0 &&
             <Movies commonMovies = { horrorMovies } allGenreMovieDict = {allGenreMovieDict} />          
           }
-          {displayMovies && historicalMovies.length > 0 &&
+          {displayMovies && historicalMovies && historicalMovies.length > 0 &&
             <div>Historical Movies</div>          
           } 
-          {displayMovies && historicalMovies.length > 0 &&
+          {displayMovies && historicalMovies && historicalMovies.length > 0 &&
             <Movies commonMovies = { historicalMovies } allGenreMovieDict = {allGenreMovieDict} />          
           }
-          {displayMovies && fantasyMovies.length > 0 &&
+          {displayMovies && fantasyMovies && fantasyMovies.length > 0 &&
             <div>Fantasy Movies</div>          
           } 
-          {displayMovies && fantasyMovies.length > 0 &&
+          {displayMovies && fantasyMovies && fantasyMovies.length > 0 &&
             <Movies commonMovies = { fantasyMovies } allGenreMovieDict = {allGenreMovieDict} />          
           }
-          {displayMovies && scifiMovies.length > 0 &&
+          {displayMovies && scifiMovies && scifiMovies.length > 0 &&
             <div>Sci-Fi Movies</div>          
           } 
-          {displayMovies && scifiMovies.length > 0 &&
+          {displayMovies && scifiMovies && scifiMovies.length > 0 &&
             <Movies commonMovies = { scifiMovies } allGenreMovieDict = {allGenreMovieDict} />          
           }                                                                           
         </Row>
